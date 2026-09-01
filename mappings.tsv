@@ -1,0 +1,6 @@
+bpy.data.objects["RIG-butterfly"].pose.bones["root"].location[1]	0.2	-0.05
+bpy.data.objects["RIG-butterfly"].pose.bones["root"].rotation_euler[2]	180	-180
+
+
+bpy.data.objects["RIG-butterfly"].pose.bones["IK-MSTR-Leg_Front3.R"].location[0]	0	0.03
+bpy.data.objects["RIG-butterfly"].pose.bones["IK-MSTR-Leg_Front3.L"].location[0]	0	0.03
