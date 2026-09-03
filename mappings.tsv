@@ -11,3 +11,21 @@ bpy.data.objects["RIG-snail"].pose.bones["root"].location[0]	0.01	-0.1
 
 bpy.data.objects["RIG-snail"].pose.bones["root"].location[1]	-.15	.25
 bpy.data.objects["RIG-butterfly.001"].pose.bones["root"].location[1]	-.15	.25
+
+
+bpy.data.objects["RIG-snail"].pose.bones["root"].rotation_euler[2]	180	-180
+bpy.data.objects["RIG-butterfly.001"].pose.bones["root"].rotation_euler[2]	180	-180
+
+bpy.data.objects["RIG-butterfly.001"].pose.bones["root"].location[2]	-.1	.15
+bpy.data.objects["RIG-snail"].pose.bones["root"].location[2]	-.1	.15
+
+
+sin(time * 5) * x
+bpy.data.objects["RIG-butterfly.001"].pose.bones["Wing.R"].rotation_euler[0]
+bpy.data.objects["RIG-butterfly.001"].pose.bones["Wing.L"].rotation_euler[0]
+
+sin(time * 5) * x
+bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[0]
+bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[1]
+bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[2]
+
