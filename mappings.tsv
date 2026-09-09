@@ -24,7 +24,7 @@ sin(time * 5) * x
 bpy.data.objects["RIG-butterfly.001"].pose.bones["Wing.R"].rotation_euler[0]
 bpy.data.objects["RIG-butterfly.001"].pose.bones["Wing.L"].rotation_euler[0]
 
-sin(time * 5) * x
+(1-(abs(sin(time * 5))*x))+0.1
 bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[0]
 bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[1]
 bpy.data.objects["RIG-snail"].pose.bones["MSTR-Lips"].scale[2]
