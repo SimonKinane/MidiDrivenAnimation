@@ -1,0 +1,101 @@
+
+-W or --window-fullscreen 
+	Force opening in full-screen mode.
+
+Python Options:
+-y or --enable-autoexec 
+	Enable automatic Python script execution.
+
+-Y or --disable-autoexec 
+	Disable automatic Python script execution (Python-drivers & startup scripts), (default).
+
+
+-P or --python <filepath>
+	Run the given Python script file.
+	
+	
+	
+/home/simon/.config/blender/4.2/extensions/blender_org/SimpleMIDI
+
+
+import bpy
+import math
+
+armature = bpy.data.objects["Armature"]
+
+mappings = [
+    (20, "UpperArm.L", 0, -45, 45),
+    (21, "UpperArm.L", 1, -30, 30),
+    (22, "Forearm.L", 0,   0, 135),
+    (23, "Hand.L",     2, -90, 90),
+]
+
+for cc, bone, axis, min_deg, max_deg in mappings:
+
+    m = bpy.context.scene.midi_mappings.add()
+    m.name = f"CC {cc} - {bone}"
+    m.midi_cc = cc
+    m.use_note = False
+    m.use_absolute = False
+    m.smooth_speed = 1.0
+    m.easing_mode = 'LINEAR'
+
+    t = m.targets.add()
+    t.data_path = (
+        f'bpy.data.objects["{armature.name}"]'
+        f'.pose.bones["{bone}"].rotation_euler[{axis}]'
+    )
+    t.min_value = math.radians(min_deg)
+    t.max_value = math.radians(max_deg)
+    t.drive_mode = 'SET'
+    t.expression = ''
+
+
+
+import bpy
+
+# -------------------------------------------------------------------
+# SimpleMIDI automatic connection
+# Blender 4.2.x
+# -------------------------------------------------------------------
+
+MIDI_DEVICE = "YOUR MIDI DEVICE NAME"
+RETRY_INTERVAL = 0.5
+MAX_RETRIES = 20
+
+_retries = 0
+
+
+def connect_simplemidi():
+    global _retries
+
+    _retries += 1
+
+    # Check that SimpleMIDI's scene property exists.
+    if not hasattr(bpy.context.scene, "midi_device_name"):
+        if _retries < MAX_RETRIES:
+            return RETRY_INTERVAL
+
+        print("SimpleMIDI: midi_device_name not available.")
+        return None
+
+    # Set the desired MIDI device.
+    bpy.context.scene.midi_device_name = MIDI_DEVICE
+
+    # Check that the SimpleMIDI operator exists.
+    try:
+        bpy.ops.wm.midi_connect()
+    except Exception as e:
+        print(f"SimpleMIDI: connection failed: {e}")
+
+        if _retries < MAX_RETRIES:
+            return RETRY_INTERVAL
+
+        return None
+
+    print(f"SimpleMIDI: connected to '{MIDI_DEVICE}'")
+    return None
+
+
+# Wait until Blender/SimpleMIDI has finished initialising.
+bpy.app.timers.register(connect_simplemidi, first_interval=1.0)
